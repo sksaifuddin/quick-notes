@@ -19,8 +19,22 @@
     </div>
 </div>
 
-<div>
-    <div class="mt-1 mb-1">
-        <app-notes-summary-card></app-notes-summary-card>
+<!-- New Notes Card and Display real time typing by user -->
+
+<div *ngFor="let item of notesItem$ | async">
+    <div class="mt-2 mb-2">
+        <app-notes-summary-card
+            [notes]="item"
+        ></app-notes-summary-card>
+    </div>    
+</div>
+
+<!-- Dispaly already created notes cards -->
+
+<div *ngFor="let item of notesItem$ | async">
+    <div class="mt-2 mb-2">
+        <app-notes-summary-card
+            [notes]="item"
+        ></app-notes-summary-card>
     </div>    
 </div>

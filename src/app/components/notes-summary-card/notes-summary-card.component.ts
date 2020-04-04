@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Notes } from './../../models/notes.model';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-notes-summary-card',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesSummaryCardComponent implements OnInit {
 
+  currentTime: string = new Date().toLocaleString();
+
+  @Input() notes: Notes;
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
-
 }
