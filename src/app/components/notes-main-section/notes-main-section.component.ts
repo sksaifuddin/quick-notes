@@ -46,12 +46,12 @@ export class NotesMainSectionComponent implements OnInit {
         notesText: data,
         timeStamp: new Date().toLocaleString(),
       };
-      this.newNotesSubject.next(newNotes);
+      this.utilityService.setNewNotes(newNotes)
     });
   }
 
   addNotes(): void {
-    const newNotes: Notes = this.newNotesSubject.getValue();
+    const newNotes: Notes = this.utilityService.getNewNotesValue();
     this.store.dispatch(new AddNotesAction(newNotes));
   }
 

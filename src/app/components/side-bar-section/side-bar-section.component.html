@@ -17,24 +17,24 @@
 </div>
 
 <div class="row">
-    <div class="col d-flex justify-content-center m-2">
-        <input type="text" class="form-control" placeholder="Search Notes">
+    <div class="col d-flex justify-content-center m-2" [formGroup]="form">
+        <input type="text" formControlName="searchText" class="form-control" placeholder="Search Notes">
     </div>
 </div>
 
 <!-- New Notes Card and Display real time typing by user -->
 
-<!-- <div *ngFor="let item of notesItem$ | async">
+<!-- <div *ngFor="let item of (notesItem$ | async)">
     <div class="mt-2 mb-2">
         <app-notes-summary-card
-            [notes]="item"
+            [notes]="item | search: searchValues"
         ></app-notes-summary-card>
     </div>    
 </div> -->
 
 <!-- Dispaly already created notes cards -->
 
-<div *ngFor="let item of notesItem$ | async">
+<div *ngFor="let item of (notesItem$ | async | search: searchValues)">
     <div class="mt-2 mb-2" style="cursor: pointer;" (click)="onNoteSelected(item)">
         <app-notes-summary-card
             [notes]="item"

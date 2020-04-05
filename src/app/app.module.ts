@@ -9,13 +9,15 @@ import { NotesSummaryCardComponent } from './components/notes-summary-card/notes
 import { NotesReducer } from './store/reducers/notes.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { NotesEffects } from './store/effects/notes.effects';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SideBarSectionComponent,
     NotesMainSectionComponent,
-    NotesSummaryCardComponent
+    NotesSummaryCardComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

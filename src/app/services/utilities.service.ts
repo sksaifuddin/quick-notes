@@ -10,8 +10,13 @@ export class UtilitiesService {
   /** This service contains utility functions and shared Subjects which will be used through out the application */
 
   selectedNoteSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
+  newNotesSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
 
   constructor() { }
+
+  /*
+  * setter and getter functions used when user clicks on one of the notes card from side bar.
+  */
 
   setSelectedNote(selectedNote: Notes): void {
     this.selectedNoteSubject.next(selectedNote);
@@ -19,6 +24,22 @@ export class UtilitiesService {
 
   getSelectedNote(): Observable<Notes> {
     return this.selectedNoteSubject.asObservable();
+  }
+
+
+  /*
+  * setter and getter functions used when user starts typing the notes in main notes section.
+  */  
+  setNewNotes(notes: Notes): void {
+    this.newNotesSubject.next(notes);
+  }
+
+  getNewNotesObservable(): Observable<Notes> {
+    return this.newNotesSubject.asObservable();
+  }
+
+  getNewNotesValue(): Notes {
+    return this.newNotesSubject.getValue();
   }
 
 
