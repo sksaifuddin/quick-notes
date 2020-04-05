@@ -1,4 +1,4 @@
-import { DeleteAllNotesAction } from './../../store/actions/notes.actions';
+import { DeleteAllNotesAction, DeleteNotesAction } from './../../store/actions/notes.actions';
 import { UtilitiesService } from './../../services/utilities.service';
 import { switchMap, pluck } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +7,7 @@ import { AppState } from 'src/app/models/app-state.model';
 import { Observable } from 'rxjs';
 import { Notes } from 'src/app/models/notes.model';
 import { LoadNotesAction } from 'src/app/store/actions/notes.actions';
+import { NotesApiService } from 'src/app/services/notes-api.service';
 
 @Component({
   selector: 'app-side-bar-section',
@@ -15,7 +16,10 @@ import { LoadNotesAction } from 'src/app/store/actions/notes.actions';
 })
 export class SideBarSectionComponent implements OnInit {
   notesItem$: Observable<Array<Notes>>;
-  constructor(private store: Store<AppState>, private utiliyService: UtilitiesService) { }
+  activeNoteId: string;
+  constructor(private store: Store<AppState>, 
+    private notesApiService: NotesApiService,
+    private utiliyService: UtilitiesService) { }
 
   ngOnInit() {
     this.setSavedNotes();
@@ -30,5 +34,15 @@ export class SideBarSectionComponent implements OnInit {
     this.store.dispatch(new DeleteAllNotesAction());
     this.store.dispatch(new LoadNotesAction());
   }
+
+  onNoteSelected(selectedNote: Notes) {
+    this.activeNoteId = selectedNote.id
+    this.utiliyService.setSelectedNote(selectedNote);
+  }
+
+  deleteSelectedNote(): void {
+    this.store.dispatch(new DeleteNotesAction(this.activeNoteId));
+    this.store.dispatch(new LoadNotesAction());
+  }  
 
 }

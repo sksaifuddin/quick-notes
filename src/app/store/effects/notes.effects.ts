@@ -5,7 +5,9 @@ import {
     AddNotesSuccessAction, 
     LoadNotesSuccessAction,
     DeleteAllNotesAction, 
-    DeleteAllNotesSuccessAction 
+    DeleteAllNotesSuccessAction, 
+    DeleteNotesAction,
+    DeleteNotesSuccessAction
 } from './../actions/notes.actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -40,6 +42,16 @@ export class NotesEffects {
         switchMap(
             (data) => this.notesApiService.deleteAll().pipe(
                 map(() => new DeleteAllNotesSuccessAction()),
+                catchError(err => of(err))
+            )
+        )
+    )
+
+    @Effect() deleteNotes$ = this.actions$.pipe(
+        ofType<DeleteNotesAction>(NotesActionTypes.DELETE_NOTE_ACTION),
+        switchMap(
+            (data) => this.notesApiService.deleteById(data.payload).pipe(
+                map(() => new DeleteNotesSuccessAction()),
                 catchError(err => of(err))
             )
         )

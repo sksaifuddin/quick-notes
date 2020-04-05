@@ -1,3 +1,5 @@
+import { filter } from 'rxjs/operators';
+import { UtilitiesService } from './../../services/utilities.service';
 import { NotesApiService } from './../../services/notes-api.service';
 import { Notes } from "./../../models/notes.model";
 import { TypingNotesAction, AddNotesAction } from "./../../store/actions/notes.actions";
@@ -16,8 +18,8 @@ import { BehaviorSubject } from 'rxjs';
 export class NotesMainSectionComponent implements OnInit {
   form: FormGroup;
   newNotesSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
-
-  constructor(private fb: FormBuilder, private store: Store<AppState>, private notesAPi: NotesApiService) {
+  currentTimeStamp: string = new Date().toLocaleString();
+  constructor(private fb: FormBuilder, private store: Store<AppState>, private utilityService: UtilitiesService) {
     this.buildForm();
   }
 
@@ -29,6 +31,12 @@ export class NotesMainSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNotesTyping();
+    this.utilityService.getSelectedNote()
+    .pipe(filter(Boolean))
+    .subscribe((data: Notes) => { 
+        this.form.get('notesText').setValue(data.notesText);
+        this.currentTimeStamp = data.timeStamp;
+     });
   }
 
   setNotesTyping(): void {

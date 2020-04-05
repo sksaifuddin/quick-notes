@@ -20,17 +20,18 @@ export function NotesReducer(
       return [...state, action.payload];
 
     case NotesActionTypes.LOAD_NOTES_ACTION:
-        console.log('load notes action', action.type, state);
       return [...state];
 
     case NotesActionTypes.LOAD_NOTES_SUCCESS:
-        console.log('here', action.payload, 'state', state);
       return [...action.payload];
 
     case NotesActionTypes.DELETE_ALL_NOTES_ACTION:
         return state;
 
         case NotesActionTypes.DELETE_ALL_NOTES_SUCCESS:
+            return state;
+
+        case (NotesActionTypes.DELETE_NOTE_ACTION || NotesActionTypes.DELETE_ALL_NOTES_SUCCESS):
             return state;
 
     case NotesActionTypes.TYPING_NOTES:

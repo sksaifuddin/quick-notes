@@ -7,8 +7,10 @@ export enum NotesActionTypes {
   ADD_NOTES_SUCCESS = "Add Notes Success",
   LOAD_NOTES_ACTION = "Load Notes",
   LOAD_NOTES_SUCCESS = "Load Notes Success",
-  DELETE_ALL_NOTES_ACTION = "Delete Notes",
-  DELETE_ALL_NOTES_SUCCESS = "Delete Notes Success",
+  DELETE_ALL_NOTES_ACTION = "Delete All Notes",
+  DELETE_ALL_NOTES_SUCCESS = "Delete All Notes Success",
+  DELETE_NOTE_ACTION = "Delete selected Notes Action",
+  DELETE_NOTE_SUCCESS = "Delete Selected Notes Success",
 }
 
 export class TypingNotesAction implements Action {
@@ -46,6 +48,16 @@ export class DeleteAllNotesSuccessAction implements Action {
     readonly type = NotesActionTypes.DELETE_ALL_NOTES_SUCCESS;
 }
 
+export class DeleteNotesAction implements Action {
+    readonly type = NotesActionTypes.DELETE_NOTE_ACTION;
+
+    constructor(public payload: string) {}
+} 
+
+export class DeleteNotesSuccessAction implements Action {
+    readonly type = NotesActionTypes.DELETE_NOTE_SUCCESS;
+}
+
 export type NotesAction =
   | TypingNotesAction
   | AddNotesAction
@@ -53,5 +65,7 @@ export type NotesAction =
   | LoadNotesAction
   | LoadNotesSuccessAction
   | DeleteAllNotesAction
+  | DeleteAllNotesSuccessAction
+  | DeleteNotesAction
   | DeleteAllNotesSuccessAction
   ;

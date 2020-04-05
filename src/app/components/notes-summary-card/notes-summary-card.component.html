@@ -1,4 +1,6 @@
-<div class="row border rounded p-2 m-0">
+<div 
+[ngClass]="{'bg-secondary': notes?.id === activeNoteId}"
+class="row border rounded p-2 m-0">
     <div class="col">
         <div class="row">
             {{notes?.notesText || 'New Notes'}}

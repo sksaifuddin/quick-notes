@@ -11,6 +11,7 @@ export class NotesSummaryCardComponent implements OnInit {
   currentTime: string = new Date().toLocaleString();
 
   @Input() notes: Notes;
+  @Input() activeNoteId: string;
 
   constructor() { }
 
