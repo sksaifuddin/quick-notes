@@ -14,7 +14,8 @@ export class NotesApiService {
   */
 
   getAll(): Observable<Notes[]> {
-      return of(JSON.parse(localStorage.getItem('notes')));
+    const notes: Notes[] = JSON.parse(localStorage.getItem('notes'));  
+    return  notes ? of(JSON.parse(localStorage.getItem('notes'))) : of([]);
   }
 
   getById(id: string): Observable<Notes> {
@@ -24,11 +25,12 @@ export class NotesApiService {
       );
   }
 
-  save(notes: Notes[]): void {
-    localStorage.setItem('notes', JSON.stringify(notes));
-  }
+  // save(notes: Notes[]): void {
+  //   localStorage.setItem('notes', JSON.stringify(notes));
+  // }
 
-  saveById(notes: Notes): Observable<Notes> {
+  save(notes: Notes): Observable<Notes> {
+    console.log('notes', notes);
    return this.getAll().pipe(
       switchMap((allNotes: Notes[]) => { 
         localStorage.setItem('notes', JSON.stringify([...allNotes, notes]))
@@ -37,8 +39,9 @@ export class NotesApiService {
     )
   }
 
-  deleteAll(): void {
+  deleteAll(): Observable<[]> {
     localStorage.setItem('notes', JSON.stringify([]));
+    return of([])
   }
 
   deleteById(id: string): void {

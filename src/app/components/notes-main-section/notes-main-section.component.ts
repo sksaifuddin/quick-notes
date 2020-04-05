@@ -1,10 +1,12 @@
+import { NotesApiService } from './../../services/notes-api.service';
 import { Notes } from "./../../models/notes.model";
-import { TypingNotesAction } from "./../../store/actions/notes.actions";
+import { TypingNotesAction, AddNotesAction } from "./../../store/actions/notes.actions";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, FormBuilder } from "@angular/forms";
 import { AppState } from "src/app/models/app-state.model";
 import { Store } from "@ngrx/store";
 import { v4 as uuid } from "uuid";
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: "app-notes-main-section",
@@ -13,9 +15,16 @@ import { v4 as uuid } from "uuid";
 })
 export class NotesMainSectionComponent implements OnInit {
   form: FormGroup;
+  newNotesSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>, private notesAPi: NotesApiService) {
     this.buildForm();
+  }
+
+  buildForm(): void {
+    this.form = this.fb.group({
+      notesText: "",
+    });
   }
 
   ngOnInit(): void {
@@ -29,13 +38,14 @@ export class NotesMainSectionComponent implements OnInit {
         notesText: data,
         timeStamp: new Date().toLocaleString(),
       };
-      this.store.dispatch(new TypingNotesAction(newNotes));
+      this.newNotesSubject.next(newNotes);
     });
   }
 
-  buildForm(): void {
-    this.form = this.fb.group({
-      notesText: "",
-    });
+  addNotes(): void {
+    const newNotes: Notes = this.newNotesSubject.getValue();
+    this.store.dispatch(new AddNotesAction(newNotes));
   }
+
+
 }

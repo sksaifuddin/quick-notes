@@ -7,6 +7,8 @@ import { SideBarSectionComponent } from './components/side-bar-section/side-bar-
 import { NotesMainSectionComponent } from './components/notes-main-section/notes-main-section.component';
 import { NotesSummaryCardComponent } from './components/notes-summary-card/notes-summary-card.component';
 import { NotesReducer } from './store/reducers/notes.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { NotesEffects } from './store/effects/notes.effects';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { NotesReducer } from './store/reducers/notes.reducers';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    EffectsModule.forRoot([NotesEffects]),
     StoreModule.forRoot({
       notesState: NotesReducer
     })

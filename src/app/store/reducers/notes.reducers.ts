@@ -1,19 +1,41 @@
-import { Notes } from './../../models/notes.model';
-import { NotesActionTypes, TypingNotesAction } from './../actions/notes.actions';
+import { Notes } from "./../../models/notes.model";
+import { NotesActionTypes, NotesAction } from "./../actions/notes.actions";
 
 const initialState: Array<Notes> = [
-    {
-        id: "1",
-        notesText: "New Note",
-        timeStamp: new Date().toLocaleString()
-    }
+  {
+    id: "1",
+    notesText: "New Note",
+    timeStamp: new Date().toLocaleString(),
+  },
 ];
 
-export function NotesReducer(state: Array<Notes> = initialState, action: TypingNotesAction): Notes[] {
-    switch (action.type) {
-        case NotesActionTypes.TYPING_NOTES:
-          return [action.payload];
-        default:
-          return state;
-      }
+export function NotesReducer(
+  state: Array<Notes> = initialState,
+  action: NotesAction
+): Notes[] {
+  switch (action.type) {
+    case NotesActionTypes.ADD_NOTES:
+      return [...state];
+    case NotesActionTypes.ADD_NOTES_SUCCESS:
+      return [...state, action.payload];
+
+    case NotesActionTypes.LOAD_NOTES_ACTION:
+        console.log('load notes action', action.type, state);
+      return [...state];
+
+    case NotesActionTypes.LOAD_NOTES_SUCCESS:
+        console.log('here', action.payload, 'state', state);
+      return [...action.payload];
+
+    case NotesActionTypes.DELETE_ALL_NOTES_ACTION:
+        return state;
+
+        case NotesActionTypes.DELETE_ALL_NOTES_SUCCESS:
+            return state;
+
+    case NotesActionTypes.TYPING_NOTES:
+      return [action.payload];
+    default:
+      return state;
+  }
 }
