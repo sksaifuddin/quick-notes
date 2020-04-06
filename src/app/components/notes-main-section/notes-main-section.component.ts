@@ -1,4 +1,4 @@
-import { filter } from 'rxjs/operators';
+import { filter, debounce, debounceTime } from 'rxjs/operators';
 import { UtilitiesService } from './../../services/utilities.service';
 import { NotesApiService } from './../../services/notes-api.service';
 import { Notes } from "./../../models/notes.model";
@@ -17,8 +17,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NotesMainSectionComponent implements OnInit {
   form: FormGroup;
+  disabledAddBtn: boolean = true;
   newNotesSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
   currentTimeStamp: string = new Date().toLocaleString();
+
+  
   constructor(private fb: FormBuilder, private store: Store<AppState>, private utilityService: UtilitiesService) {
     this.buildForm();
   }
@@ -40,12 +43,16 @@ export class NotesMainSectionComponent implements OnInit {
   }
 
   setNotesTyping(): void {
-    this.form.get("notesText").valueChanges.subscribe((data: string) => {
+    this.form.get("notesText")
+    .valueChanges
+    .pipe(debounceTime(100))
+    .subscribe((data: string) => {
       const newNotes: Notes = {
         id: uuid(),
         notesText: data,
         timeStamp: new Date().toLocaleString(),
       };
+      this.disabledAddBtn = false; 
       this.utilityService.setNewNotes(newNotes)
     });
   }
@@ -53,6 +60,8 @@ export class NotesMainSectionComponent implements OnInit {
   addNotes(): void {
     const newNotes: Notes = this.utilityService.getNewNotesValue();
     this.store.dispatch(new AddNotesAction(newNotes));
+    this.disabledAddBtn = true;
+    this.form.get("notesText").reset();
   }
 
 

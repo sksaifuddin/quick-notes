@@ -1,7 +1,9 @@
 <div class="m-2">
   <div class="row">
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 d-flex justify-content-start">
-      <button class="btn btn-light" (click)="addNotes()">
+      <button class="btn btn-light"
+      [disabled] = "disabledAddBtn"
+      (click)="addNotes()">
         <i class="fas fa-plus"></i>
       </button>
     </div>

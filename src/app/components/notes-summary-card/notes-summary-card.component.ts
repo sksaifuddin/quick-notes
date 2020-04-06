@@ -1,3 +1,5 @@
+import { filter } from 'rxjs/operators';
+import { UtilitiesService } from './../../services/utilities.service';
 import { Notes } from './../../models/notes.model';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -12,8 +14,17 @@ export class NotesSummaryCardComponent implements OnInit {
 
   @Input() notes: Notes;
   @Input() activeNoteId: string;
+  @Input() set isNewNoteCard(isNewNote: boolean) {
+    if(isNewNote) {
+      this.utilityService.getNewNotesObservable()
+      .pipe(filter(Boolean))
+      .subscribe((notes: Notes) => {
+          this.notes = notes;
+      })
+    }
+  }
 
-  constructor() { }
+  constructor(private utilityService: UtilitiesService) { }
 
   ngOnInit(): void {
   }
