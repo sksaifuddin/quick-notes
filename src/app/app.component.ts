@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'notesTaking';
+  displaySideBar: boolean = true;
+
+  onExpandBtnClick(): void {
+    this.displaySideBar = !this.displaySideBar;
+  }
+
 }

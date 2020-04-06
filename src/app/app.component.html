@@ -1,9 +1,24 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 sidebar border-right">
-            <app-side-bar-section></app-side-bar-section>
+
+    <div class="row p-2">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xs-12"> 
+            <button class="btn btn-light" (click)="onExpandBtnClick()">
+                <i class='fas fa-bars'></i>
+            </button>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div class="text-center">
+                <img src="assets/quickNotes_logo.png" width="150px" height="50px" class="rounded" alt="Qick Notes: Fast, Easy, Done">
+            </div>
+        </div>
+    </div>
+
+    <div class="row border">
+        <div *ngIf="displaySideBar" 
+        class="col-lg-3 col-md-3 col-sm-3 col-xs-12 sidebar border-right">
+            <app-side-bar-section></app-side-bar-section>
+        </div>
+        <div [ngClass]="displaySideBar ? 'col-lg-9 col-md-9 col-sm-9 col-xs-12': 'col-lg-12 col-md-12 col-sm-12 col-xs-12'">
             <app-notes-main-section></app-notes-main-section>
         </div>
     </div>
