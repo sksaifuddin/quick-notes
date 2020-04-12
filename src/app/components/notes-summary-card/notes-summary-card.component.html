@@ -3,7 +3,7 @@
 class="row border rounded p-2 m-0">
     <div class="col">
         <div class="row">
-            {{notes?.notesText || 'New Notes'}}
+         <span  [innerHTML]="notes?.notesText || 'New Notes'"></span>
         </div>
         <div class="row">
             {{notes?.timeStamp || currentTime}}
