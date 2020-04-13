@@ -14,7 +14,7 @@ export class NotesApiService {
 
   getAll(): Observable<Notes[]> {
     const notes: Notes[] = JSON.parse(localStorage.getItem("notes"));
-    return notes ? of(JSON.parse(localStorage.getItem("notes"))) : of([]);
+    return notes ? of(notes) : of([]);
   }
 
   getById(id: string): Observable<Notes> {

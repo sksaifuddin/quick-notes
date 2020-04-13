@@ -22,20 +22,21 @@
 
 <!-- New Notes Card and Display real time typing by user -->
 
-<div class="mt-2 mb-2">
+<div class="mt-2 mb-2" style="cursor: pointer;">
     <app-notes-summary-card
-        [isNewNoteCard]="true"
+        [notes]="newNotes$ | async"
+        [reset]="resetNewCard"
+        (click)="newNoteSelected()"
     ></app-notes-summary-card>
 </div>    
 
 <!-- Dispaly already created notes cards -->
 
-<div *ngFor="let item of (notesItem$ | async | search: searchValues)">
+<div *ngFor="let item of (notesItem$ | async | search: searchValues)" @fade >
     <div class="mt-2 mb-2" style="cursor: pointer;" (click)="onNoteSelected(item)">
         <app-notes-summary-card
             [notes]="item"
             [activeNoteId]="activeNoteId"
-            [isNewNoteCard]="false"
         ></app-notes-summary-card>
     </div>    
 </div>

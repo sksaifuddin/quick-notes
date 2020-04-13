@@ -14,17 +14,14 @@ export class NotesSummaryCardComponent implements OnInit {
 
   @Input() notes: Notes;
   @Input() activeNoteId: string;
-  @Input() set isNewNoteCard(isNewNote: boolean) {
-    if(isNewNote) {
-      this.utilityService.getNewNotesObservable()
-      .pipe(filter(Boolean))
-      .subscribe((notes: Notes) => {
-          this.notes = notes;
-      })
+
+  @Input() set reset(set: symbol) {
+    if(set) {
+      this.notes = null;
     }
   }
-
-  constructor(private utilityService: UtilitiesService) { }
+ 
+  constructor() { }
 
   ngOnInit(): void {
   }

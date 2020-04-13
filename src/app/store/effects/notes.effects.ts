@@ -11,7 +11,7 @@ import {
 } from './../actions/notes.actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
+import { mergeMap, map, catchError, switchMap, delay, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable()

@@ -11,6 +11,7 @@ export class UtilitiesService {
 
   selectedNoteSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
   newNotesSubject: BehaviorSubject<Notes> = new BehaviorSubject(null);
+  resetNewCardSubject: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
   constructor() { }
 
@@ -45,10 +46,11 @@ export class UtilitiesService {
 
   /*
   * Generalised function for removing Duplicates from any array of objects.
-  * Provide a property on the basis of which duplicates will be removed.
+  * Provide a property name on the basis of which duplicates will be removed.
+  * Defualt property will be Id.
   */
   removeDuplicates<T>(inputArray: T[], duplicateProperty: string = 'id'): T[] {
-    if(inputArray.length <= 1) {
+    if(inputArray.length === 0) {
       return inputArray;
     }
     return inputArray.filter(
