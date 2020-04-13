@@ -15,7 +15,7 @@ export function NotesReducer(
 ): Notes[] {
   switch (action.type) {
     case NotesActionTypes.ADD_NOTES:
-      return [...state];
+      return [...state, action.payload];
     case NotesActionTypes.ADD_NOTES_SUCCESS:
       return [...state, action.payload];
 
@@ -26,13 +26,14 @@ export function NotesReducer(
       return [...action.payload];
 
     case NotesActionTypes.DELETE_ALL_NOTES_ACTION:
-        return state;
+      return state;
 
-        case NotesActionTypes.DELETE_ALL_NOTES_SUCCESS:
-            return state;
+    case NotesActionTypes.DELETE_ALL_NOTES_SUCCESS:
+      return state;
 
-        case (NotesActionTypes.DELETE_NOTE_ACTION || NotesActionTypes.DELETE_ALL_NOTES_SUCCESS):
-            return state;
+    case NotesActionTypes.DELETE_NOTE_ACTION ||
+      NotesActionTypes.DELETE_ALL_NOTES_SUCCESS:
+      return state;
 
     case NotesActionTypes.TYPING_NOTES:
       return [action.payload];
