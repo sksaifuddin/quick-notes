@@ -10,6 +10,7 @@ import { NotesReducer } from './store/reducers/notes.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { NotesEffects } from './store/effects/notes.effects';
 import { SearchPipe } from './pipes/search.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SearchPipe } from './pipes/search.pipe';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     EffectsModule.forRoot([NotesEffects]),
     StoreModule.forRoot({
       notesState: NotesReducer
