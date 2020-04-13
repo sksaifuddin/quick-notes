@@ -11,6 +11,8 @@ An angular example to create and delete notes.
 
 The notes created will be saved in localhost.
 
+live link :- https://sksaifuddin.github.io/quick-notes/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
 ## Development server
