@@ -22,7 +22,7 @@ export class NotesApiService {
       map((notes: Notes[]) => {
         return notes.filter((note: Notes) => id === note.id);
       }),
-      pluck("0")
+      pluck("0") // There will be always array of size 1
     );
   }
 

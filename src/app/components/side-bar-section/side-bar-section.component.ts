@@ -46,10 +46,22 @@ export class SideBarSectionComponent implements OnInit {
   ngOnInit() {
     this.setSavedNotes();
     this.store.dispatch(new LoadNotesAction());
+    this.setFormValueChanges();
+    this.setNewNotes();
+    this.checkForResetCardAction();
+  }
+
+  setFormValueChanges(): void {
     this.form.get('searchText').valueChanges.subscribe((data) => {
       this.searchValues = data;
     });
+  }
+
+  setNewNotes(): void {
     this.newNotes$ = this.utilityService.getNewNotesObservable().pipe(filter((data: Notes) => this.activeNoteId === null || !data));
+  }
+
+  checkForResetCardAction(): void {
     this.utilityService.resetNewCardSubject.pipe(filter(Boolean)).subscribe(() => this.resetNewCard = Symbol(''));
   }
 

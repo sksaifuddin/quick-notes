@@ -15,6 +15,9 @@ export class NotesSummaryCardComponent implements OnInit {
   @Input() notes: Notes;
   @Input() activeNoteId: string;
 
+  /**
+   *  Reset the card, when a symbol value is passed with any string
+   */
   @Input() set reset(set: symbol) {
     if(set) {
       this.notes = null;

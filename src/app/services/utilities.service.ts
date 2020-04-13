@@ -27,6 +27,9 @@ export class UtilitiesService {
     return this.selectedNoteSubject.asObservable();
   }
 
+  getSelectedNoteValue(): Notes {
+    return this.selectedNoteSubject.getValue();
+  }
 
   /*
   * setter and getter functions used when user starts typing the notes in main notes section.

@@ -28,7 +28,6 @@ export class NotesMainSectionComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<AppState>,
     private utilityService: UtilitiesService,
-    private notesApi:NotesApiService
   ) {
     this.buildForm();
   }
@@ -44,29 +43,20 @@ export class NotesMainSectionComponent implements OnInit {
     this.utilityService
       .getSelectedNote()
       .pipe(
-        tap((data: Notes) => {
-          if(!data) {
-            this.resertFormAction();
-            this.utilityService.setNewNotes(null);
-          }
-        }),
+        tap((data: Notes) => this.actionOnNewCardClick(data)),
         filter(Boolean)
-        )
+      )
       .subscribe((data: Notes) => {
         this.form.get("notesText").setValue(data.notesText);
         this.currentTimeStamp = data.timeStamp;
-        this.form.get("notesText").disable()
+        this.form.get("notesText").disable();
       });
-      this.notesApi.getAll().subscribe((data) => console.log('alll', data));
   }
 
   setNotesTyping(): void {
     this.form
       .get("notesText")
-      .valueChanges.pipe(
-        debounceTime(100),
-        filter(Boolean),
-        )
+      .valueChanges.pipe(debounceTime(100), filter(Boolean))
       .subscribe((data: string) => {
         const newNotes: Notes = {
           id: uuid(),
@@ -89,5 +79,12 @@ export class NotesMainSectionComponent implements OnInit {
     this.form.get("notesText").reset();
     this.form.get("notesText").enable();
     this.utilityService.resetNewCardSubject.next(true);
+  }
+
+  actionOnNewCardClick(notes: Notes): void {
+    if (!notes) {
+      this.resertFormAction();
+      this.utilityService.setNewNotes(null);
+    }
   }
 }
